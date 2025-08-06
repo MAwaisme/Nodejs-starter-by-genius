@@ -1,23 +1,19 @@
-const http = require('http');
-const fs = require("fs");
+const express = require('express');
+const users = require("./MOCK_DATA.json");
 
-const myServer = http.createServer((req, res) => {
-    const log = `${Date?.now()}: ${req.url} New request\n`
+const app = express();
+const PORT = 8000;
 
-    fs.appendFile("log.txt", log, (err, data) => {
-        switch (req?.url) {
-            case "/":
-                res?.end("Homepage");
-                break;
-            case "/about":
-                res?.end("In About page")
-                break;
-            default:
-                res?.end("404");
-        }
-    })
-    // console.log("New req from server!");
-    // res.end("Hey from server!")
+
+app?.get('/api/users', (req, res) => {
+    return res?.json(users);
+})
+
+app?.get('/api/users/:id', (req, res) => {
+    const id = Number(req.params.id);
+    const user = users?.find((user) => user?.id === id);
+    return res?.json(user);
 });
 
-myServer?.listen(8000, () => console.log("Server started!"))
+
+app?.listen(PORT, () => console.log("Server started!"))
