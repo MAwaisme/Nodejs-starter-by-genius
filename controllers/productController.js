@@ -91,6 +91,8 @@ exports.deleteProduct = async (req, res) => {
 
 // ✅ Get Featured Products
 exports.getFeaturedProducts = async (req, res) => {
+    console.log("res-------", req);
+    
     try {
         const products = await Product.find({ isFeatured: true })
             .sort({ createdAt: -1 })
@@ -104,6 +106,8 @@ exports.getFeaturedProducts = async (req, res) => {
 
 // ✅ Get Most Selling Products
 exports.getMostSellingProducts = async (req, res) => {
+    console.log("res------- soldCount", req);
+
     try {
         const products = await Product.find()
             .sort({ soldCount: -1 }) // highest sold first

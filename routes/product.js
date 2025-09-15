@@ -12,20 +12,19 @@ const {
     markAsFeatured
 } = require("../controllers/productController");
 
+// Create + Read all
 router.post("/", auth, createProduct);
 router.get("/", auth, getProducts);
+
+// ✅ Fixed routes must come BEFORE dynamic routes
+router.get("/featured", getFeaturedProducts);
+router.get("/most-selling", getMostSellingProducts);
+router.post("/markAsFeatured", markAsFeatured);
+router.put("/:id/feature", auth, markAsFeatured);
+
+// Dynamic :id routes at the bottom
 router.get("/:id", auth, getProductById);
 router.put("/:id", auth, updateProduct);
 router.delete("/:id", auth, deleteProduct);
 
-// GET /api/products/featured
-router.get("/featured", getFeaturedProducts);
-router.post("/markAsFeatured", markAsFeatured);
-
-// GET /api/products/most-selling
-router.get("/most-selling", getMostSellingProducts);
-
-// PUT /api/products/:id/feature (admin only)
-router.put("/:id/feature", auth, markAsFeatured);
-
-module.exports = router;  // 👈 this is crucial
+module.exports = router;
