@@ -88,3 +88,45 @@ exports.deleteProduct = async (req, res) => {
         errorResponse(res, err.message);
     }
 };
+
+// ✅ Get Featured Products
+exports.getFeaturedProducts = async (req, res) => {
+    try {
+        const products = await Product.find({ isFeatured: true })
+            .sort({ createdAt: -1 })
+            .limit(10); // limit to 10 featured products
+
+        res.json({ success: true, data: products });
+    } catch (err) {
+        errorResponse(res, err.message);
+    }
+};
+
+// ✅ Get Most Selling Products
+exports.getMostSellingProducts = async (req, res) => {
+    try {
+        const products = await Product.find()
+            .sort({ soldCount: -1 }) // highest sold first
+            .limit(10);
+
+        res.json({ success: true, data: products });
+    } catch (err) {
+        errorResponse(res, err.message);
+    }
+};
+
+// ✅ Mark a Product as Featured (Admin use case)
+exports.markAsFeatured = async (req, res) => {
+    try {
+        const product = await Product.findByIdAndUpdate(
+            req.body.id,
+            { isFeatured: req.body.isFeatured },
+            { new: true }
+        );
+        if (!product) return res.status(404).json({ success: false, message: "Product not found" });
+
+        res.json({ success: true, message: "Product marked as featured", data: product });
+    } catch (err) {
+        errorResponse(res, err.message);
+    }
+};

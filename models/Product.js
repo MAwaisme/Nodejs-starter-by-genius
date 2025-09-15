@@ -6,7 +6,10 @@ const productSchema = new mongoose.Schema({
     price: { type: Number, required: [true, "Price required"], min: [0, "Price must be >= 0"] },
     description: { type: String, default: "" },
     // image: { type: String, default: "" }, // will store a public URL/path
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+
+    isFeatured: { type: Boolean, default: false },
+    soldCount: { type: Number, default: 0 }  // used for "most selling"
 }, { timestamps: true });
 
 module.exports = mongoose.model("Product", productSchema);
