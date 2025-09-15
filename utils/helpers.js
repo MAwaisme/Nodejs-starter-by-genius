@@ -12,7 +12,7 @@ exports.errorResponse = (res, message = "Server error", statusCode = 500) => {
 
 // Generate JWT Token
 exports.generateToken = (userId) => {
-    return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: "12h" });
 };
 
 // Simple request logger

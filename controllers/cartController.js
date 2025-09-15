@@ -7,7 +7,7 @@ const { errorResponse } = require("../utils/helpers");
 exports.addToCart = async (req, res) => {
     try {
         const { productId, quantity } = req.body;
-        const user = await User.findById(req.user.id);
+        const user = await User.findById(req.user.id); // ✅ use req.user.id
         if (!user) return errorResponse(res, "User not found");
 
         const product = await Product.findById(productId);
@@ -30,7 +30,7 @@ exports.addToCart = async (req, res) => {
 // ✅ Get Cart
 exports.getCart = async (req, res) => {
     try {
-        const user = await User.findById(req.user.id).populate("cart.product");
+        const user = await User.findById(req.user.id).populate("cart.product"); // ✅ use req.user.id
         res.json({ success: true, cart: user.cart });
     } catch (err) {
         errorResponse(res, err.message);
@@ -47,4 +47,4 @@ exports.removeFromCart = async (req, res) => {
     } catch (err) {
         errorResponse(res, err.message);
     }
-};
+}; 

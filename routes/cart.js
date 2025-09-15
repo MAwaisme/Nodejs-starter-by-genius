@@ -6,7 +6,7 @@ const { addToCart, getCart, removeFromCart } = require("../controllers/cartContr
 
 // Cart APIs
 router.post("/", auth, addToCart);                // add to cart
-router.get("/", auth, getCart);                   // get cart
+router.get("/getCart", auth, getCart);                   // get cart
 router.delete("/:productId", auth, removeFromCart); // remove item
 
 module.exports = router;
