@@ -33,6 +33,8 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/user", require("./routes/user"));
 app.use("/api/dashboard", require("./routes/dashboard"));
 app.use("/api/products", require("./routes/product"));
+app.use("/api/cart", require("./routes/cart"));
+app.use("/api/orders", require("./routes/order"));
 
 console.log("👉 Routes mounted!");
 
