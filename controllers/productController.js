@@ -10,12 +10,13 @@ exports.createProduct = async (req, res) => {
         if (!name || price === undefined) {
             return res.status(400).json({ success: false, message: "Name and price are required" });
         }
+        // console.log("req.user================>>>>>>>>>>>", req);
 
         const product = new Product({
             name,
             price,
             description: description || "",
-            createdBy: req.user.id
+            createdBy: req.body.id
         });
 
         await product.save();
@@ -92,7 +93,7 @@ exports.deleteProduct = async (req, res) => {
 // ✅ Get Featured Products
 exports.getFeaturedProducts = async (req, res) => {
     console.log("res-------", req);
-    
+
     try {
         const products = await Product.find({ isFeatured: true })
             .sort({ createdAt: -1 })

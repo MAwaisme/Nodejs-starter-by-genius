@@ -5,6 +5,8 @@ const { errorResponse } = require("../utils/helpers");
 
 // ✅ Add to cart
 exports.addToCart = async (req, res) => {
+    console.log("req, res==============>>>>>>>>>>", req, res);
+
     try {
         const { productId, quantity } = req.body;
         const user = await User.findById(req.user.id); // ✅ use req.user.id
@@ -23,6 +25,8 @@ exports.addToCart = async (req, res) => {
         await user.save();
         res.json({ success: true, cart: user.cart });
     } catch (err) {
+        console.log("error in add to card=============>>>>>>>", err);
+
         errorResponse(res, err.message);
     }
 };
