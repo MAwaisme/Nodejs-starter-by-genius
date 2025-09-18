@@ -18,7 +18,14 @@ exports.register = async (req, res) => {
 
         successResponse(res, {
             token: generateToken(user._id),
-            user: { id: user._id, name: user.name, email: user.email }
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                favorites: user.favorites,
+                cart: user.cart,
+                createdAt: user.createdAt
+            }
         }, "User registered successfully");
     } catch (err) {
         errorResponse(res, err.message);
@@ -37,7 +44,14 @@ exports.login = async (req, res) => {
 
         successResponse(res, {
             token: generateToken(user._id),
-            user: { id: user._id, name: user.name, email: user.email }
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                favorites: user.favorites,
+                cart: user.cart,
+                createdAt: user.createdAt
+            }
         }, "Login successful");
     } catch (err) {
         errorResponse(res, err.message);

@@ -67,7 +67,7 @@ router.get("/checking", async (req, res) => {
     console.log("checking.....>>>>>>>>=====");
     res.status(201).json({
         msg: "User registered successfully",
-});
+    });
 });
 
 
@@ -83,12 +83,22 @@ router.post("/login", async (req, res) => {
         if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
 
         const token = jwt.sign(
-            { id: user._id },
+            { _id: user._id },
             process.env.JWT_SECRET,
             { expiresIn: "1h" }
         );
 
-        res.json({ token });
+        // res.json({ token });
+        // Convert user doc to object and remove password
+        const userData = user.toObject();
+        delete userData.password;
+
+        // ✅ Return complete user + token
+        res.json({
+            success: true,
+            token,
+            user: userData
+        });
     } catch (err) {
         res.status(500).json({ msg: "Server error" });
     }
