@@ -59,3 +59,33 @@ exports.getFavorites = async (req, res) => {
         errorResponse(res, err.message);
     }
 };
+
+// ✅ Update Profile
+exports.updateProfile = async (req, res) => {
+    try {
+        const { name, email } = req.body;
+
+        // Find user
+        let user = await User.findById(req.user.id);
+        if (!user) return errorResponse(res, "User not found");
+
+        // Check for duplicate email if user tries to update email
+        if (email && email !== user.email) {
+            const emailExists = await User.findOne({ email });
+            if (emailExists) return errorResponse(res, "Email already in use");
+            user.email = email;
+        }
+
+        // Update fields if provided
+        if (name) user.name = name;
+
+        await user.save();
+
+        const updatedUser = user.toObject();
+        delete updatedUser.password; // hide password field
+
+        successResponse(res, updatedUser, "Profile updated successfully");
+    } catch (err) {
+        errorResponse(res, err.message);
+    }
+};
