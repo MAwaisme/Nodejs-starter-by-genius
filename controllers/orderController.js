@@ -24,3 +24,13 @@ exports.checkout = async (req, res) => {
         errorResponse(res, err.message);
     }
 };
+
+exports.getAll = async (req, res) => {
+    try {
+        const user = await User.find();
+
+        res.json({ success: true, user });
+    } catch (err) {
+        errorResponse(res, err.message);
+    }
+};

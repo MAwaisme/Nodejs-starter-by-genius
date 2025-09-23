@@ -11,22 +11,6 @@ exports.getProfile = async (req, res) => {
     }
 };
 
-// Update profile
-exports.updateProfile = async (req, res) => {
-    try {
-        const { name, email } = req.body;
-        const updatedUser = await User.findByIdAndUpdate(
-            req.user.id,
-            { name, email },
-            { new: true }
-        ).select("-password");
-
-        successResponse(res, updatedUser, "Profile updated successfully");
-    } catch (err) {
-        errorResponse(res, err.message);
-    }
-};
-
 // ✅ Add/Remove product from favorites
 exports.toggleFavorite = async (req, res) => {
     try {
