@@ -10,7 +10,13 @@ const YAML = require("yamljs");
 const path = require("path");
 
 dotenv.config();
+
 const app = express();
+
+// 👇 Add these middlewares before routes
+app.use(express.json()); // for JSON bodies
+app.use(express.urlencoded({ extended: true })); // for form data
+
 
 // Connect DB
 connectDB();
@@ -35,11 +41,12 @@ app.use("/api/dashboard", require("./routes/dashboard"));
 app.use("/api/products", require("./routes/product"));
 app.use("/api/cart", require("./routes/cart"));
 app.use("/api/orders", require("./routes/order"));
+app.use("/api/articles", require("./routes/article"));
 
 console.log("👉 Routes mounted!");
 
 // Start Server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
     console.log(`📘 Swagger Docs available at http://localhost:${PORT}/api-docs`);
