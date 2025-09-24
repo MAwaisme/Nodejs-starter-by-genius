@@ -19,7 +19,7 @@ router.post("/users", async (req, res) => {
 
 // Get All Users
 router.get("/users", async (req, res) => {
-    const users = await User.find();
+    const users = await User.find();                
     res.json(users);
 });
 
