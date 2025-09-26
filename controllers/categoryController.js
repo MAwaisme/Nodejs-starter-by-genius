@@ -1,21 +1,17 @@
 const Category = require("../models/Category");
 
+// Create category
 exports.createCategory = async (req, res) => {
     try {
-        const { name } = req.body;
-
         const category = await Category.create({
-            name,
-            createdAt,
-            createdBy
-        })
-
+            name: req.body.name,
+            createdBy: req.user._id
+        });
         res.status(201).json({ success: true, data: category });
     } catch (error) {
-        console.log("error in create category", error);
         res.status(500).json({ success: false, message: error.message });
     }
-}
+};
 
 exports.getAllCategry = async (req, res) => {
     try {
@@ -26,3 +22,13 @@ exports.getAllCategry = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 }
+
+// Get all categories
+exports.getCategories = async (req, res) => {
+    try {
+        const categories = await Category.find();
+        res.json({ success: true, data: categories });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};

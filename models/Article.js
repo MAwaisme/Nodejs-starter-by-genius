@@ -33,7 +33,6 @@ const articleSchema = new mongoose.Schema(
             ref: "Category",
             required: true
         }
-
     },
     { timestamps: true }
 );
