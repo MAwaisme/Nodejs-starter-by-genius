@@ -42,11 +42,12 @@ app.use("/api/products", require("./routes/product"));
 app.use("/api/cart", require("./routes/cart"));
 app.use("/api/orders", require("./routes/order"));
 app.use("/api/articles", require("./routes/article"));
+app.use("/api/categories", require("./routes/categoryRoutes"));
 
 console.log("👉 Routes mounted!");
 
 // Start Server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
     console.log(`📘 Swagger Docs available at http://localhost:${PORT}/api-docs`);

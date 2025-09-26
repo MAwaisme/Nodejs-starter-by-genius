@@ -5,13 +5,14 @@ exports.createArticle = async (req, res) => {
     try {
         console.log("req logggg", req?.body);
 
-        const { title, slug, description, author } = req?.body;
+        const { title, slug, description, author, categoryId } = req?.body;
 
         const article = await Article.create({
             title,
             slug,
             description,
             author,               // string from request
+            category: categoryId, // 👈 reference to Category
             writerName: req.user._id  // logged-in user from JWT
         });
 
