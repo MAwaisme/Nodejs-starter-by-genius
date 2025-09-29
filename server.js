@@ -43,6 +43,7 @@ app.use("/api/cart", require("./routes/cart"));
 app.use("/api/orders", require("./routes/order"));
 app.use("/api/articles", require("./routes/article"));
 app.use("/api/categories", require("./routes/categoryRoutes"));
+app.use("api/comments", require("./routes/comment"));
 
 console.log("👉 Routes mounted!");
 
