@@ -26,7 +26,7 @@ exports.getComments = async (req, res) => {
         const { articleId } = req.params;
 
         const comments = await Comment.find({ article: articleId })
-            .populate("user", "name email")
+            .populate("user")
             .sort({ createdAt: -1 });
 
         res.json(comments);
