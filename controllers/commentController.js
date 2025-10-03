@@ -7,6 +7,8 @@ exports.addComment = async (req, res) => {
     try {
         const { articleId } = req.params;
         const { userId, text } = req.body;
+        console.log("user >>>>>>>>>>>>>>>", req.user);
+
 
         const article = await Article.findById(articleId);
         if (!article) return res.status(404).json({ message: "Article not found" });
